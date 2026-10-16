@@ -13,6 +13,7 @@ c_HCO_b = 21.0;
 % apical and basal surface areas (m^2)
 A_a = 6e-4; 
 A_b = 6e-4;
+A_tj = 2e-4;
 
 % transporter intensities (mol/m^2/s)
 P_ATP = 6e-6; 
@@ -23,8 +24,12 @@ P_NCBE = 1e-6;
 P_AE2 = 0.4e-6;
 
 % channel permeabilities (m/s)
-P_K = 5e-8; 
-P_Cl = 6e-8;
+P_K_a = 5e-8; 
+P_Cl_a = 6e-8;
+P_Na_tj = 5e-8;
+P_K_tj = 5e-8;
+P_Cl_tj = 5e-8;
+P_HCO_tj = 5e-8;
 
 % reflection coefficients
 sigma_Na = 1; 
