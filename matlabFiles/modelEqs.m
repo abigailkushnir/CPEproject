@@ -7,7 +7,8 @@ function y = modelEqs(vars, ps)
 
     c_Na_i = vars(1); c_Cl_i = vars(2); c_K_i = vars(3); c_HCO_i = vars(4); c_X_i = vars(5); V_a = vars(6); V_tj = vars(7);
 
-    K_Na = 0.2*(1 + c_K_i/8.33); K_K = 0.1*(1 + c_Na_a/18.5); % dissociation constants
+    % dissociation constants
+    K_Na = 0.2*(1 + c_K_i/8.33); K_K = 0.1*(1 + c_Na_a/18.5);
 
     % apical
     J_ATP = A_a*P_ATP*(c_Na_i/(K_Na + c_Na_i))^3*(c_K_a/(K_K + c_K_a))^2; % ATPase

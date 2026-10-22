@@ -17,15 +17,15 @@ A_tj = 1e-10;
 
 % transporter intensities (mol/m^2/s)
 P_ATP = 6e-6; 
-P_NBCe2 = 6e-6; 
-P_NKKC1 = 1e-6;
-P_NBCn1 = 1e-6; 
-P_NCBE = 1e-6; 
-P_AE2 = 0.4e-6;
+P_NBCe2 = 6e-6; % being fitted 
+P_NKKC1 = 1e-6; % being fitted 
+P_NBCn1 = 1e-6; % being fitted 
+P_NCBE = 1e-6;  % being fitted 
+P_AE2 = 0.4e-6; % being fitted 
 
 % channel permeabilities (m/s)
-P_K_a = 9e-8; 
-P_Cl_a = 7.4e-8;
+P_K_a = 9e-8; % being fitted
+P_Cl_a = 7.4e-8; % being fitted 
 P_Na_tj = 8e-5;
 P_K_tj = 8e-5;
 P_Cl_tj = 5e-5;

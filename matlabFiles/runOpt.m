@@ -12,9 +12,9 @@ targV_tj = -targets(6)*F/(R*T);
 targX = targets(1) + targets(3) - targets(2) - targets(4); % from electroneutrality
 weights = [1 1 1 1 1 1];
 
-%% optimization
+%% optimisation
 opts = optimoptions('fmincon', 'Display', 'iter');
-psFit = fmincon(@(ps) objFunc(ps, targets, weights), ps0, [], [], [], [], 0.001*ps0, 1000*ps0, [], opts);
+psFit = fmincon(@(ps) objFunc(ps, targets, weights), ps0, [], [], [], [], 0.0001*ps0, 10000*ps0, [], opts);
 
 %% test the fitted parameters
 syms c_Na_i c_Cl_i c_K_i c_HCO_i c_X_i V_a V_tj

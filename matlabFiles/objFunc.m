@@ -1,4 +1,5 @@
 function L = objFunc(ps, targets, weights)
+
     parametersCPE;
 
     % targets = [c_Na_i c_Cl_i c_K_i c_HCO_i Phi_i Phi_a]
@@ -24,7 +25,7 @@ function L = objFunc(ps, targets, weights)
     r = [x(1:4) Phi_i Phi_a] - targets;
 
     if ~isreal(x) || any(x(1:5) <= 0)
-        L = 1e10; % complex or non-physical solution
+        L = 1e10; % complex or neg concentrations
     else
         L = sum(weights.*((r)./targets).^2); % fmincon finding local min better when rel. error is used
         % L = sum(weights.*(r).^2);
