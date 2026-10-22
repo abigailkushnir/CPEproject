@@ -61,7 +61,7 @@ clear sol;
 
 sol = vpasolve(eqns, vars, incon);
 
-if isempty(sol.c_Na_i)==0 && isreal(sol.c_Na_i)==1 && isreal(sol.V_a)==1
+if isempty(sol.c_Na_i)==0 && isreal(sol.c_Na_i) && isreal(sol.V_a)
 
 c_Na_i = double(sol.c_Na_i);
 c_Cl_i = double(sol.c_Cl_i);
