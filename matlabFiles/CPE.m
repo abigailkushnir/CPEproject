@@ -1,8 +1,6 @@
-parameters_CPE;
+parametersCPE;
 
 syms c_Na_i c_Cl_i c_K_i c_HCO_i c_X_i V_a V_tj
-% Phi_B = 0 ==> V_tj = -F/RT * Phi_a, Phi_a = Phi_i - V_a RT/F, V_b = F/RT
-% Phi_b
 
 K_Na = 0.2*(1 + c_K_i/8.33); K_K = 0.1*(1 + c_Na_a/18.5); % dissociation constants
 
@@ -40,22 +38,25 @@ J_HCO_b = -J_NBCn1 - 2*J_NCBE + J_AE2;
 J_HCO_tj = -A_tj*P_HCO_tj*V_tj*((c_HCO_b - c_HCO_a*exp(V_tj))/(1 - exp(V_tj)));
 
 % current equations
-I_a = F*(J_ATP - 2*J_NBCe2 + J_K_a - J_Cl_a);
-I_b = 0;
+I_a = F*(J_ATP - 2*J_NBCe2 + J_K - J_Cl);
 I_tj = F*(J_Na_tj + J_K_tj - J_Cl_tj - J_HCO_tj);
 
+% scales
+J_scale = A_a*P_ATP; % ion flux scale (mol/s)
+Q_scale = A_a*K_a*R*T; % water flux per mM osmotic difference (m^3/s)
+
 % balance equations
-eq1 = (J_Na_a + J_Na_b) == 0; % sodium
-eq2 = (J_Cl_a + J_Cl_b) == 0; % chloride
-eq3 = (J_K_a + J_K_b) == 0; % potassium
-eq4 = (J_HCO_a + J_HCO_b) == 0; % bicarbonate
-eq5 = (Q_a + Q_b) == 0; % water
+eq1 = (J_Na_a + J_Na_b)/J_scale == 0; % sodium
+eq2 = (J_Cl_a + J_Cl_b)/J_scale == 0; % chloride
+eq3 = (J_K_a + J_K_b)/J_scale == 0; % potassium
+eq4 = (J_HCO_a + J_HCO_b)/J_scale == 0; % bicarbonate
+eq5 = (Q_a + Q_b)/Q_scale == 0; % water
 eq6 = c_Na_i + c_K_i - c_Cl_i - c_HCO_i - c_X_i == 0; % electroneutrality
-eq7 = I_a + I_b + I_tj == 0; % open circuit
+eq7 = (I_a + I_tj)/(F*J_scale) == 0; % open circuit
 
 eqns = [eq1 eq2 eq3 eq4 eq5 eq6 eq7];
 vars = [c_Na_i c_Cl_i c_K_i c_HCO_i c_X_i V_a V_tj];
-incon = [10, 1, 10, 10, 10, -1 -1];
+incon = [10, 40, 130, 20, 80, -1.5, -0.05]; % V_tj starts > 0, away from the 0/0 at V_tj = 0
 clear sol;
 
 sol = vpasolve(eqns, vars, incon);
@@ -79,6 +80,9 @@ fprintf('HCO3: %.2f\n', c_HCO_i);
 fprintf('X: %.2f\n', c_X_i);
 fprintf('V_a: %.4f\n', V_a);
 fprintf('V_tj: %.4f\n', V_tj);
+V_b = V_a - V_tj;
+fprintf('Phi_a*1000: %.4f\n', (V_b - V_a)*(R*T/F)*1000);
+fprintf('Phi_i*1000: %.4f\n', (V_b)*(R*T/F)*1000);
 
 else
    fprintf("failed\n")

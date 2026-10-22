@@ -1,19 +1,19 @@
-% apical concentrations (mM)
-c_Na_a = 130.0; 
-c_Cl_a = 114.0; 
-c_K_a = 5.0; 
-c_HCO_a = 21.0;
+% apical concentrations (mM) (from ranges in Damkier et al. 2013)
+c_Na_a = 152.0; 
+c_Cl_a = 130.0; 
+c_K_a = 3.0; 
+c_HCO_a = 25.0;
 
-% basal concentrations (mM)
+% basal concentrations (mM) (from ranges in Damkier et al. 2013)
 c_Na_b = 130.0; 
 c_Cl_b = 114.0; 
 c_K_b = 5.0; 
 c_HCO_b = 21.0;
 
 % apical and basal surface areas (m^2)
-A_a = 6e-4; 
-A_b = 6e-4;
-A_tj = 2e-4;
+A_a = 1e-7; 
+A_b = 1e-7;
+A_tj = 1e-10;
 
 % transporter intensities (mol/m^2/s)
 P_ATP = 6e-6; 
@@ -24,12 +24,12 @@ P_NCBE = 1e-6;
 P_AE2 = 0.4e-6;
 
 % channel permeabilities (m/s)
-P_K_a = 5e-8; 
-P_Cl_a = 6e-8;
-P_Na_tj = 5e-8;
-P_K_tj = 5e-8;
-P_Cl_tj = 5e-8;
-P_HCO_tj = 5e-8;
+P_K_a = 9e-8; 
+P_Cl_a = 7.4e-8;
+P_Na_tj = 8e-5;
+P_K_tj = 8e-5;
+P_Cl_tj = 5e-5;
+P_HCO_tj = 5e-5;
 
 % reflection coefficients
 sigma_Na = 1; 
