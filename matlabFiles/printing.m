@@ -1,0 +1,20 @@
+fprintf('\nTransporter intensity range: %.2e to %.2e mol/m^2/s', lb(1), ub(1));
+fprintf('\nP_ATP fixed at %.2e mol/m^2/s', P_ATP);
+fprintf('\nChannel permeability range: %.2e to %.2e m/s', lb(6), ub(6));
+fprintf('\nTight junction permeability range: %.2e to %.2e m/s', lb(10), ub(10));
+fprintf('\n');
+fprintf('\nTargets: c_Na_i = %.2f, c_Cl_i = %.2f, c_K_i = %.2f, c_HCO_i = %.2f, Phi_i = %.4f, Phi_a = %.4f', targets);
+fprintf('\nFitted:  c_Na_i = %.2f, c_Cl_i = %.2f, c_K_i = %.2f, c_HCO_i = %.2f, Phi_i = %.4f, Phi_a = %.4f', x(1:4), Phi_i, Phi_a);
+fprintf('\nFitted parameters: \n \tChannels: P_NBCe2 = %.4e, P_NKKC1 = %.4e, P_NBCn1 = %.4e, P_NCBE = %.4e, P_AE2 = %.4e, \n \tPermeabilities: P_K_a = %.4e, P_Cl_a = %.4e, P_K_b = %.4e, P_Na_b = %.4e, \n\t\tP_K_tj = %.4e, P_Cl_tj = %.4e, P_Na_tj = %.4e, P_HCO_tj = %.4e', psFit);
+fprintf('\nFinal objective function value: %.4e', f);
+fprintf('\n');
+fprintf('\nI_a: %.4e, I_tj: %.4e', double(subs(I_a, vars, x)), double(subs(I_tj, vars, x)));
+fprintf('\nJ_K_channel_b: %.4e, J_Na_channel_b: %.4e', double(subs(J_K_channel_b, vars, x)), double(subs(J_Na_channel_b, vars, x)));
+fprintf('\n(J_K_a + J_K_tj)*(10^6*3600/(A_a*(10^4))): %.4e (-0.01 in Wright 1972)', (double(subs(J_K_a, vars, x)) + double(subs(J_K_tj, vars, x)))*((10^6)*3600/(A_a*(10^4))));
+fprintf('\n(J_Na_a + J_Na_tj)*(10^6*3600/(A_a*(10^4))): %.4e (1.0 - 1.1 in Wright 1972)', (double(subs(J_Na_a, vars, x)) + double(subs(J_Na_tj, vars, x)))*((10^6)*3600/(A_a*(10^4))));
+fprintf('\n(J_Cl_a + J_Cl_tj)*(10^6*3600/(A_a*(10^4))): %.4e (0.2 - 0.6 in Wright 1972)', (double(subs(J_Cl_a, vars, x)) + double(subs(J_Cl_tj, vars, x)))*((10^6)*3600/(A_a*(10^4))));
+fprintf('\n(J_HCO_a + J_HCO_tj)*(10^6*3600/(A_a*(10^4))): %.4e ', (double(subs(J_HCO_a, vars, x)) + double(subs(J_HCO_tj, vars, x)))*((10^6)*3600/(A_a*(10^4))));
+
+% G_tj   = (F^2/(R*T))*A_tj*(P_Na_tj*c_Na_b + P_K_tj*c_K_b + P_Cl_tj*c_Cl_b + P_HCO_tj*c_HCO_b);
+% G_cell = 1/(1/((F^2/(R*T))*A_a*(P_K_a*c_K_i + P_Cl_a*c_Cl_i)) + 1/((F^2/(R*T))*A_b*(P_K_b*c_K_i + P_Na_b*c_Na_i)));
+% fprintf('\nG_tj/G_cell = %.2f (leaky if >> 1), R_te ~ %.0f ohm cm^2', double(G_tj/subs(G_cell, vars, x)), double((A_b*1e4)/(G_tj + subs(G_cell, vars, x))));
