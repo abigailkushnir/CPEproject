@@ -15,27 +15,28 @@ c_K_b = 5.0;
 c_HCO_b = 21.0;
 
 % apical and basal surface areas (m^2)
-A_a = 1e-6; 
-A_b = 1e-7;
-A_tj = 1e-10;
+A_tissue = 1e-10;
+A_a = 15*A_tissue; % apical surface area
+A_b = A_a/3;
+A_tj = A_a*1e-4;
 
 % transporter intensities (mol/m^2/s)
-P_ATP = 5e-6; 
-P_NBCe2 = 5e-6; % being fitted 
-P_NKKC1 = 5e-6; % being fitted 
-P_NBCn1 = 5e-6; % being fitted 
-P_NCBE = 5e-6;  % being fitted 
-P_AE2 = 5e-6; % being fitted 
+P_ATP = 5e-7; 
+P_NBCe2 = 5e-7; % being fitted 
+P_NKKC1 = 5e-7; % being fitted 
+P_NBCn1 = 5e-7; % being fitted 
+P_NCBE = 5e-7;  % being fitted 
+P_AE2 = 5e-7; % being fitted 
 
 % channel permeabilities (m/s)
 P_K_a = 5e-8; % being fitted
 P_K_b = 5e-8; % being fitted
 P_Cl_a = 5e-8; % being fitted 
 P_Na_b = 5e-8; % being fitted
-P_Na_tj = 8e-7; % being fitted
-P_K_tj = 8e-7; % being fitted
-P_Cl_tj = 8e-7; % being fitted
-P_HCO_tj = 8e-7; % being fitted
+P_Na_tj = 8e-5; % being fitted
+P_K_tj = 8e-5; % being fitted
+P_Cl_tj = 8e-5; % being fitted
+P_HCO_tj = 8e-5; % being fitted
 
 % reflection coefficients
 sigma_Na = 1; 

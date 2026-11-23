@@ -14,7 +14,7 @@ function L = objFuncFsolve(ps, targets, weights)
     try
         [x, ~, exitflag] = fsolve(@(v) modelEqs(v, ps), x0, solveOpts);
     catch
-        exitflag = -1; % e.g. complex values from log of negative argument
+        exitflag = -1; % stopped by output (NaN or complex)
     end
     if exitflag <= 0
         L = 1e10; % no solution found
@@ -27,8 +27,8 @@ function L = objFuncFsolve(ps, targets, weights)
 
     r = [x(1:4) Phi_i Phi_a] - targets;
 
-    if ~isreal(x) || any(x(1:5) <= 0)
-        L = 1e10; % complex or neg concentrations
+    if ~isreal(x) %|| any(x(1:5) <= 0)
+        L = Inf; %1e10; % complex or neg concentrations
     else
         L = sum(weights.*((r)./targets).^2); % fmincon finding local min better when rel. error is used
         % L = sum(weights.*(r).^2);

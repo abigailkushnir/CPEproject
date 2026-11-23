@@ -8,7 +8,7 @@ expandPs = @(p) [p(1:9) p(10)*ones(1,4)]; % -> [... P_K_tj P_Cl_tj P_Na_tj P_HCO
 
 % order: 1 NBCe2, 2 NKCC1, 3 NBCn1, 4 NCBE, 5 AE2, 6 K_a, 7 Cl_a, 8 K_b, 9 Na_b, 10 tj
 on = ones(1, 10);
-% on([8]) = 0;
+% on([9]) = 0;
 
 %% target concentrations and potentials
 % targets: c_Na_i c_Cl_i c_K_i c_HCO_i Phi_i Phi_a
@@ -19,9 +19,9 @@ targX = targets(1) + targets(3) - targets(2) - targets(4); % from electroneutral
 weights = [1 1 1 1 1 1];
 
 %% optimisation
-lb = [1e-7 1e-7 1e-7 1e-7 1e-7 1e-9 1e-9 1e-9 1e-9 1e-8]; % lower bounds
-ub = [9.9e-5 9.9e-5 9.9e-5 9.9e-5 9.9e-5 9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-6]; % upper bounds
-opts = optimoptions('fmincon', 'Display', 'iter', 'StepTolerance', 1e-16, 'OptimalityTolerance', 1e-8, 'MaxFunctionEvaluations', 2e4, 'MaxIterations', 5e3);
+lb = [1e-8 1e-8 1e-8 1e-8 1e-8 1e-9 1e-9 1e-9 1e-9 1e-6]; % lower bounds
+ub = [9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-7 9.9e-4]; % upper boundsPer
+opts = optimoptions('fmincon', 'Display', 'iter', 'MaxFunctionEvaluations', 2e4, 'MaxIterations', 5e3, 'Algorithm', 'sqp', 'StepTolerance', 1e-12);
 % psFit = fmincon(@(ps) objFunc(ps, targets, weights), ps0, [], [], [], [], lb, ub, [], opts);
 [qFit,f] = fmincon(@(q) objFuncFsolve(expandPs(on.*10.^q), targets, weights), log10(ps0), [], [], [], [], log10(lb), log10(ub), [], opts);
 psFit = expandPs(on.*10.^qFit); % full 13-element vector
